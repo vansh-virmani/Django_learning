@@ -1,0 +1,1 @@
+this chapter is regarding connecting multiple views of different applications thorugh urls and connetions
