@@ -1,0 +1,2 @@
+firstly add data to table by usign python manage.py shell or by admin panel then 
+use the retrieval of data and displaying on html browser from database
