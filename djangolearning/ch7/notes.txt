@@ -1,0 +1,26 @@
+queryset or to extract database data to json format needs to be done by 2 methods:
+Method 2 — .values() + list() (clean, preferred)
+pythondef students_api(request):
+    # Step 1: fetch only the columns you need
+    queryset = Profile.objects.values('id', 'name', 'email', 'city')
+    # queryset is still a QuerySet — not JSON serializable yet
+
+    # Step 2: convert to plain Python list
+    student_list = list(queryset)
+    # now it's a normal Python list of dicts — JSON can handle this
+
+    # Step 3: return with safe=False (it's a list)
+    return JsonResponse(student_list, safe=False)
+
+
+
+    Method 1 — Django serializer (quick but messy output)
+pythonfrom django.core import serializers
+
+def students_api(request):
+    students = Profile.objects.all()
+    data = serializers.serialize('json', students)
+    # data is now a JSON string — already serialized
+    from django.http import HttpResponse
+    return HttpResponse(data, content_type='application/json')
+Output looks like this — notice the extra metadata:
